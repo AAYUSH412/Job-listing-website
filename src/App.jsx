@@ -1,22 +1,20 @@
 import React from 'react';
-import './index.css' // Ensure you have the correct path to your CSS file
-import Navbar from './components/navbar';
-import Hero from './components/hero';
-import Homecards from './components/homecards';
-import Joblist from './components/joblist';
-import Viewalljobs from './components/viewalljobs';
+import {BrowserRouter, Routes, Route,createBrowserRouter,createRoutesFromElements,RouterProvider} from 'react-router-dom'
+import './index.css' 
+import Homepage from './pages/homepage';
+import Mainlayout from './layout/mainlayout';
 
-
+const router=createBrowserRouter(
+  createRoutesFromElements(
+  <Route path='/' element={<Mainlayout />}>
+    <Route index element={<Homepage/> }/>)
+  </Route>
+  )
+);
 
 const App = () => {
-  return (  
-    <>
-    <Navbar />
-    <Hero/>
-    <Homecards/>
-    <Joblist/>
-    <Viewalljobs/>
-    </>
+  return (
+    <RouterProvider router={router}/>
   );
 };
 

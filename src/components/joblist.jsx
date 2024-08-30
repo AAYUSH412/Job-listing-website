@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import jobsData from '../jobtake.json';
-
+import { FaMapMarkerAlt } from 'react-icons/fa'; 
 const JobList = () => {            
     const jobs = jobsData.jobs; // Accessing the jobs array
     const recentJobs = jobs.slice(0, 3); // Limiting to the first 3 jobs
     const [showFullDescription, setShowFullDescription] = useState(false); // State to toggle description length
 
+    
     return (
         <section className="bg-blue-50 px-4 py-10">
             <div className="container-xl lg:container m-auto">
@@ -15,7 +16,7 @@ const JobList = () => {
                         // Determine the job description to display
                         let jobDescription = job.description;
                         if (!showFullDescription && jobDescription.length > 90) {
-                            jobDescription = jobDescription.substring(0, 90) + "...";
+                            jobDescription = jobDescription.substring(0, 91) + "...";
                         }
 
                         return (
@@ -38,9 +39,9 @@ const JobList = () => {
                                     <h3 className="text-indigo-500 mb-2">{job.salary}</h3>
                                     <div className="border border-gray-100 mb-5"></div>
                                     <div className="flex flex-col lg:flex-row justify-between mb-4">
-                                        <div className="text-orange-700 mb-3">
-                                            <i className="fa-solid fa-location-dot text-lg"></i>
-                                            {job.location}
+                                        <div className="text-orange-700 ">
+                                        <FaMapMarkerAlt />
+                                        {job.location}
                                         </div>
                                         <a href={`/job/${job.id}`} className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm">
                                             Read More
