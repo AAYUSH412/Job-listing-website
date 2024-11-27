@@ -13,7 +13,7 @@ const HomeCards = () => {
                 Browse our React jobs and start your career today
               </p>
               <Link
-                to="/job"
+                to="/jobs"
                 className="inline-block bg-black text-white rounded-lg px-4 py-2 hover:bg-gray-700"
               >
                 Browse Jobs
@@ -28,10 +28,10 @@ const HomeCards = () => {
                 List your job to find the perfect developer for the role
               </p>
               <Link
-                to="/employers.html"
+                to="/add-job"
                 className="inline-block bg-black text-white rounded-lg px-4 py-2 hover:bg-gray-700"
               >
-                List a Job
+                Add Job
               </Link>
             </div>
           </div>
