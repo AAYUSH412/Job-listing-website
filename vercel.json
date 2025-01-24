@@ -3,7 +3,7 @@
     "builds": [
       {
         "src": "api/*.js",
-        "use": "@vercel/edge"
+        "use": "@vercel/node"
       },
       {
         "src": "package.json",
