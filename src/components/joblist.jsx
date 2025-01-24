@@ -12,7 +12,7 @@ const JobLists = ({ isHome = false }) => {
       try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
-          throw new Error('Failed to fetch jobs');
+          throw new Error('Failed to fetch');
         }
         const data = await response.json();
         setJobs(data);
