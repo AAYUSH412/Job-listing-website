@@ -11,22 +11,28 @@
         "config": { "distDir": "dist" }
       }
     ],
-    "routes": [
+    "rewrites": [
       {
-        "src": "/api/(.*)",
-        "dest": "/api/$1"
+        "source": "/api/:path*",
+        "destination": "/api/:path*"
       },
       {
-        "src": "/(.*)",
-        "dest": "/index.html"
+        "source": "/(.*)",
+        "destination": "/index.html"
       }
     ],
     "headers": [
       {
         "source": "/api/(.*)",
         "headers": [
-          { "key": "Content-Type", "value": "application/json" },
-          { "key": "Access-Control-Allow-Origin", "value": "*" }
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }
         ]
       }
     ]
