@@ -2,9 +2,8 @@
     "version": 2,
     "builds": [
       {
-        "src": "api/jobs.js",
-        "use": "@vercel/node",
-        "config": { "runtime": "edge" }
+        "src": "api/*.js",
+        "use": "@vercel/edge"
       },
       {
         "src": "package.json",
@@ -14,12 +13,21 @@
     ],
     "routes": [
       {
-        "src": "/api/.*",
-        "dest": "/api/jobs.js"
+        "src": "/api/(.*)",
+        "dest": "/api/$1"
       },
       {
         "src": "/(.*)",
         "dest": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/api/(.*)",
+        "headers": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Access-Control-Allow-Origin", "value": "*" }
+        ]
       }
     ]
   }

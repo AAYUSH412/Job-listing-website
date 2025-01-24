@@ -1,19 +1,17 @@
-import { readFileSync } from 'fs';
 import { join } from 'path';
-import jsonServer from 'json-server';
 
-const handler = async (req, res) => {
-  // Read the jobs data
-  const jobs = JSON.parse(readFileSync(join(process.cwd(), 'src/jobtake.json'), 'utf8'));
-
-  // Create JSON Server
-  const server = jsonServer.create();
-  const router = jsonServer.router(jobs);
-  const middlewares = jsonServer.defaults();
-
-  server.use(middlewares);
-  server.use(router);
-  server.handle(req, res);
+export const config = {
+  runtime: 'edge'
 };
 
-export default handler;
+export default async function handler(req) {
+  const jobsJson = await fetch('https://github.com/AAYUSH412/Job-listing-website/blob/main/src/jobtake.json');
+  const jobs = await jobsJson.json();
+
+  return new Response(JSON.stringify(jobs), {
+    headers: {
+      'content-type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+  });
+}
