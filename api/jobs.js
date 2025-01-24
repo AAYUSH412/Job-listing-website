@@ -1,15 +1,19 @@
-import { join } from 'path';
 import { readFileSync } from 'fs';
-import { createServer } from 'json-server';
+import { join } from 'path';
+import jsonServer from 'json-server';
 
-// Read the jobs data
-const jobs = JSON.parse(readFileSync(join(process.cwd(), 'src/jobtake.json'), 'utf8'));
+const handler = async (req, res) => {
+  // Read the jobs data
+  const jobs = JSON.parse(readFileSync(join(process.cwd(), 'src/jobtake.json'), 'utf8'));
 
-// Create JSON Server
-const server = createServer({
-  jobs: jobs.jobs
-});
+  // Create JSON Server
+  const server = jsonServer.create();
+  const router = jsonServer.router(jobs);
+  const middlewares = jsonServer.defaults();
 
-export default async function handler(req, res) {
-  await server.handle(req, res);
-}
+  server.use(middlewares);
+  server.use(router);
+  server.handle(req, res);
+};
+
+export default handler;
