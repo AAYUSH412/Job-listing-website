@@ -1,15 +1,205 @@
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
 export const config = {
-    runtime: 'edge'
-  };
-  
-  export default async function handler(req) {
-    const jobsJson = await fetch('https://raw.githubusercontent.com/AAYUSH412/Job-listing-website/main/src/jobtake.json');
-    const jobs = await jobsJson.json();
-  
-    return new Response(JSON.stringify(jobs), {
+  runtime: 'edge',
+  regions: ['iad1']
+};
+
+export default async function handler(req) {
+  try {
+    // For GET requests to /api/jobs
+    if (req.method === 'GET') {
+      const jobs = {
+        "jobs": [
+          {
+            "id": "1",
+            "title": "Senior React Developer",
+            "type": "Full-Time",
+            "location": "Boston, MA",
+            "description": "We are seeking a talented Front-End Developer to join our team in Boston, MA. The ideal candidate will have strong skills in HTML, CSS, and JavaScript, with experience working with modern JavaScript frameworks such as React or Angular.",
+            "salary": "Under $50K",
+            "company": {
+              "name": "NewTek Solutions",
+              "description": "NewTek Solutions is a leading technology company specializing in web development and digital solutions. We pride ourselves on delivering high-quality products and services to our clients while fostering a collaborative and innovative work environment.",
+              "contact_email": "contact@teksolutions.com",
+              "contact_phone": "555-555-5555"
+            }
+          },
+          {
+            "id": "2",
+            "title": "Front-End Engineer [React & Redux]",
+            "type": "Full-Time",
+            "location": "Miami, FL",
+            "description": "Join our team as a Front-End Developer in sunny Miami, FL. We are looking for a motivated individual with a passion for crafting beautiful and responsive web applications. Experience with UI/UX design principles and a strong attention to detail are highly desirable.",
+            "salary": "$50K - 60K",
+            "company": {
+              "name": "Veneer Solutions",
+              "description": "Veneer Solutions is a creative agency specializing in digital design and development. Our team is dedicated to pushing the boundaries of creativity and innovation to deliver exceptional results for our clients.",
+              "contact_email": "aayu@gmail.com",
+              "contact_phone": "555-555-5555"
+            }
+          },
+          {
+            "id": "3",
+            "title": "React.js Dev",
+            "type": "Full-Time",
+            "location": "Brooklyn, NY",
+            "description": "Are you passionate about front-end development? Join our team in vibrant Brooklyn, NY, and work on exciting projects that make a difference. We offer competitive compensation and a collaborative work environment where your ideas are valued.",
+            "salary": "$70K - $80K",
+            "company": {
+              "name": "Dolor Cloud",
+              "description": "Dolor Cloud is a leading technology company specializing in digital solutions for businesses of all sizes. With a focus on innovation and customer satisfaction, we are committed to delivering cutting-edge products and services.",
+              "contactEmail": "contact@dolorsitamet.com",
+              "contactPhone": "555-555-5555"
+            }
+          },
+          {
+            "id": "4",
+            "title": "React Front-End Developer",
+            "type": "Part-Time",
+            "description": "Join our team as a Part-Time Front-End Developer in beautiful Pheonix, AZ. We are looking for a self-motivated individual with a passion for creating engaging user experiences. This position offers flexible hours and the opportunity to work remotely.",
+            "location": "Pheonix, AZ",
+            "salary": "$60K - $70K",
+            "company": {
+              "name": "Alpha Elite",
+              "description": "Alpha Elite is a dynamic startup specializing in digital marketing and web development. We are committed to fostering a diverse and inclusive workplace where creativity and innovation thrive.",
+              "contactEmail": "contact@adipisicingelit.com",
+              "contactPhone": "555-555-5555"
+            }
+          },
+          {
+            "id": "5",
+            "title": "Full Stack React Developer",
+            "type": "Full-Time",
+            "location": "Atlanta, GA",
+            "description": "Exciting opportunity for a Full-Time Front-End Developer in bustling Atlanta, GA. We are seeking a talented individual with a passion for building elegant and scalable web applications. Join our team and make an impact!",
+            "salary": "$70K - 80K",
+            "company": {
+              "name": "Browning Technologies",
+              "description": "Browning Technologies is a rapidly growing technology company specializing in e-commerce solutions. We offer a dynamic and collaborative work environment where employees are encouraged to think creatively and innovate.",
+              "contact_email": "aayushvaghelfgvga12@gmail.com",
+              "contact_phone": "12345675767890"
+            }
+          },
+          {
+            "id": "6",
+            "title": "React Native Developer",
+            "type": "Full-Time",
+            "description": "Join our team as a Front-End Developer in beautiful Portland, OR. We are looking for a skilled and enthusiastic individual to help us create innovative web solutions. Competitive salary and great benefits package available.",
+            "location": "Portland, OR",
+            "salary": "$100K - $110K",
+            "company": {
+              "name": "Port Solutions INC",
+              "description": "Port Solutions is a leading technology company specializing in software development and digital marketing. We are committed to providing our clients with cutting-edge solutions and our employees with a supportive and rewarding work environment.",
+              "contactEmail": "contact@ipsumlorem.com",
+              "contactPhone": "555-555-5555"
+            }
+          },
+          {
+            "id": "7",
+            "title": "Junior React Developer",
+            "type": "Full-Time",
+            "description": "Looking to jumpstart your career in front-end development? Join our team in Austin, TX, as a Junior React Developer. Gain hands-on experience and grow your skills in a collaborative environment.",
+            "location": "Austin, TX",
+            "salary": "$50K - $60K",
+            "company": {
+              "name": "BrightPixel Labs",
+              "description": "BrightPixel Labs is a forward-thinking software company dedicated to mentoring young talent and fostering innovation in the tech industry.",
+              "contactEmail": "contact@brightpixel.com",
+              "contactPhone": "555-123-4567"
+            }
+          },
+          {
+            "id": "8",
+            "title": "React Engineer (Remote)",
+            "type": "Remote",
+            "description": "Work from anywhere as a React Engineer with our fully remote team. We are seeking a dedicated individual with excellent problem-solving skills and a passion for building seamless user interfaces.",
+            "location": "Remote",
+            "salary": "$80K - $90K",
+            "company": {
+              "name": "Global Code Network",
+              "description": "Global Code Network is a distributed team of tech enthusiasts working on exciting projects for clients worldwide. We value flexibility and work-life balance.",
+              "contactEmail": "contact@globalcodenetwork.com",
+              "contactPhone": "555-987-6543"
+            }
+          },
+          {
+            "id": "9",
+            "title": "React Developer Intern",
+            "type": "Internship",
+            "description": "Gain real-world experience as a React Developer Intern in San Francisco, CA. This internship offers the opportunity to work on live projects with guidance from experienced mentors.",
+            "location": "San Francisco, CA",
+            "salary": "Stipend: $2,000/month",
+            "company": {
+              "name": "CodeCrafters Inc.",
+              "description": "CodeCrafters Inc. specializes in training the next generation of developers while delivering top-quality web solutions to our clients.",
+              "contactEmail": "contact@codecrafters.com",
+              "contactPhone": "555-111-2222"
+            }
+          },
+          {
+            "id": "10",
+            "title": "React/UI Developer",
+            "type": "Contract",
+            "description": "We are hiring a React/UI Developer for a 6-month contract position in Chicago, IL. If you love crafting intuitive user interfaces and have a strong portfolio, apply now!",
+            "location": "Chicago, IL",
+            "salary": "$45/hour",
+            "company": {
+              "name": "TechBridge Solutions",
+              "description": "TechBridge Solutions partners with businesses to provide innovative and tailored software solutions, bridging technology with success.",
+              "contactEmail": "contact@techbridge.com",
+              "contactPhone": "555-333-4444"
+            }
+          },
+          {
+            "id": "11",
+            "title": "React Developer Lead",
+            "type": "Full-Time",
+            "description": "Lead a team of talented developers as a React Developer Lead in Denver, CO. Take charge of exciting projects and shape the future of web development at our company.",
+            "location": "Denver, CO",
+            "salary": "$120K - $140K",
+            "company": {
+              "name": "Skyline Innovations",
+              "description": "Skyline Innovations is a top-tier tech company delivering groundbreaking digital solutions to a diverse clientele. Join us to make an impact.",
+              "contactEmail": "contact@skylineinnovations.com",
+              "contactPhone": "555-555-5555"
+            }
+          },
+          {
+            "id": "12",
+            "title": "React Frontend Engineer",
+            "type": "Full-Time",
+            "description": "We are looking for a talented React Frontend Engineer to join our team in Seattle, WA. You will be working on cutting-edge projects and collaborating with a dynamic group of developers.",
+            "location": "Seattle, WA",
+            "salary": "$95K - $105K",
+            "company": {
+              "name": "NextGen Web Studios",
+              "description": "NextGen Web Studios is a leading web development agency that specializes in creating modern, responsive, and user-friendly applications.",
+              "contactEmail": "contact@nextgenwebstudios.com",
+              "contactPhone": "555-666-7777"
+            }
+          }
+        ]
+      };
+
+      return new Response(JSON.stringify(jobs), {
+        headers: {
+          'content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    }
+
+    // Handle other HTTP methods
+    return new Response('Method not allowed', { status: 405 });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
       headers: {
         'content-type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       }
     });
   }
+}

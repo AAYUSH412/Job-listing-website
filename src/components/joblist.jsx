@@ -19,9 +19,10 @@ const JobLists = ({ isHome = false }) => {
           throw new Error('Failed to fetch jobs');
         }
         const data = await response.json();
-        setJobs(data);
+        // Check if data.jobs exists, otherwise use data directly
+        setJobs(data.jobs || data);
       } catch (error) {
-        setError(error.message);
+        setError('Failed to fetch jobs. Please try again later.');
         console.error('Error fetching jobs:', error);
       } finally {
         setLoading(false);
