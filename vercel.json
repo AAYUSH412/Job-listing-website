@@ -1,14 +1,12 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
   "builds": [
     {
       "src": "api/*.js",
-      "use": "@vercel/edge"
-    },
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
+      "use": "@vercel/node"
     }
   ],
   "rewrites": [
@@ -32,10 +30,6 @@
         {
           "key": "Access-Control-Allow-Origin",
           "value": "*"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "s-maxage=0"
         }
       ]
     }

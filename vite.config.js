@@ -9,7 +9,11 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     build: {
       target: 'esnext',
-      outDir: 'dist'
+      outDir: 'dist',
+      sourcemap: true,
+      commonjsOptions: {
+        transformMixedEsModules: true
+      }
     },
     server: {
       proxy: {
