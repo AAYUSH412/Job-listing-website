@@ -20,30 +20,30 @@ const editjobpage = ({updatejobsubmit}) => {
     const navigate = useNavigate();
     
 
-    const submitForm = (e) => {
-        e.preventDefault();
-    
-    
+    const submitForm = async (e) => {
+      e.preventDefault();
+      try {
         const updatejob = {
-            id,
-            title,
-            type,
-            location,
-            description,
-            salary,
-            company:{
-                name: company,
-                description: company_description,
-                contact_email,
-                contact_phone
-            }
-        }
-        updatejobsubmit(updatejob);
-        toast.success("update Job Successfully");
-        console.log("Job Details:", job);
-
-        return navigate(`/job/${id}`);
-    }
+          id,
+          title,
+          type,
+          location,
+          description,
+          salary,
+          company: {
+            name: company,
+            description: company_description,
+            contactEmail: contact_email,
+            contactPhone: contact_phone
+          }
+        };
+        await updatejobsubmit(updatejob);
+        toast.success("Job Updated Successfully");
+        navigate(`/job/${id}`);
+      } catch (error) {
+        toast.error("Failed to update job");
+      }
+    };
 
   return (
     <section className="bg-indigo-50">

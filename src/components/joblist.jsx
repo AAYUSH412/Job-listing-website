@@ -5,26 +5,35 @@ import Spinner from './spinner';
 const JobLists = ({ isHome = false }) => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const apiUrl = isHome ? '/api/jobs?_limit=3' : '/api/jobs';
+      const apiUrl = isHome 
+        ? `${import.meta.env.VITE_API_URL}/api/jobs?_limit=3` 
+        : `${import.meta.env.VITE_API_URL}/api/jobs`;
+      
       try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
-          throw new Error('Failed to fetch');
+          throw new Error('Failed to fetch jobs');
         }
         const data = await response.json();
         setJobs(data);
       } catch (error) {
+        setError(error.message);
         console.error('Error fetching jobs:', error);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
     fetchJobs();
-  }, []);
+  }, [isHome]);
+
+  if (error) {
+    return <div className="text-red-500 text-center py-4">{error}</div>;
+  }
 
   return (
     <section className="bg-blue-50 px-4 py-10">
@@ -34,10 +43,9 @@ const JobLists = ({ isHome = false }) => {
         </h2>
 
         {loading ? (
-          <Spinner loading={loading} /> // Spinner shows while loading
+          <Spinner loading={loading} />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
             {jobs.map((job) => (
               <JobListComponent key={job.id} job={job} />
             ))}

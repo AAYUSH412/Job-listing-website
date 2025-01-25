@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
 
 const JobListComponent = ({ job }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -47,6 +47,17 @@ const JobListComponent = ({ job }) => {
       </div>
     </div>
   );
+};
+
+JobListComponent.propTypes = {
+  job: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    salary: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default JobListComponent;

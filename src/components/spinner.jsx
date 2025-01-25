@@ -1,7 +1,7 @@
 import React from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
+import PropTypes from 'prop-types';
 
-// Define custom styles
 const override = {
   display: 'block',
   margin: '100px auto',
@@ -11,12 +11,16 @@ const override = {
 const Spinner = ({ loading }) => {
   return (
     <ClipLoader
-      color="#1100ff" // Add # for hex color
+      color="#1100ff"
       loading={loading}
-      cssOverride={override} // Correct prop for react-spinners v2+
-      size={100} // Adjust size as needed
+      cssOverride={override}
+      size={100}
     />
   );
+};
+
+Spinner.propTypes = {
+  loading: PropTypes.bool.isRequired
 };
 
 export default Spinner;
