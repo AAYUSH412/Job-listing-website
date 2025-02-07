@@ -1,0 +1,21 @@
+{
+    "buildCommand": "npm run build",
+    "framework": "vite",
+    "outputDirectory": "dist",
+    "routes": [
+      {
+        "src": "/[^.]+",
+        "dest": "/",
+        "status": 200
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/(.*)",
+        "destination": "/index.html"
+      }
+    ],
+    "env": {
+      "VITE_API_URL": "http://localhost:4000"
+    }
+  }
