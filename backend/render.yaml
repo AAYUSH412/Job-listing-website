@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: react-job-board-api
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: MONGODB_URI
+        sync: false
+      - key: NODE_ENV
+        value: production

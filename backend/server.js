@@ -59,11 +59,9 @@ app.options('*', cors());
 
 const PORT = process.env.PORT || 4000;
 
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-}
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 // Export for Vercel
 export default app;

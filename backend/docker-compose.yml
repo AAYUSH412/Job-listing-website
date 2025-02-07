@@ -2,12 +2,17 @@ version: '3.8'
 
 services:
   backend:
-    build: ./backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "4000:4000"
+    environment:
+      - PORT=4000
+      - NODE_ENV=development
     env_file:
       - ./backend/.env.local
     volumes:
-      - .:/usr/src/app
+      - ./backend:/usr/src/app
       - /usr/src/app/node_modules
     command: npm run dev
