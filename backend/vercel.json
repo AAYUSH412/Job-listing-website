@@ -1,5 +1,8 @@
 {
     "version": 2,
+    "env": {
+      "MONGODB_URI": "@mongodb_uri"
+    },
     "builds": [
       {
         "src": "server.js",
@@ -8,22 +11,42 @@
     ],
     "routes": [
       {
+        "src": "/api/jobs",
+        "dest": "server.js"
+      },
+      {
+        "src": "/api/jobs/(.*)",
+        "dest": "server.js"
+      },
+      {
+        "src": "/health",
+        "dest": "server.js"
+      },
+      {
         "src": "/(.*)",
-        "dest": "/server.js"
+        "dest": "server.js"
       }
     ],
-    "env": {
-      "MONGODB_URI": "@mongodb_uri",
-      "PORT": "4000"
-    },
     "headers": [
       {
         "source": "/(.*)",
         "headers": [
-          { "key": "Access-Control-Allow-Credentials", "value": "true" },
-          { "key": "Access-Control-Allow-Origin", "value": "*" },
-          { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
-          { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" }
+          {
+            "key": "Access-Control-Allow-Credentials",
+            "value": "true"
+          },
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+          },
+          {
+            "key": "Access-Control-Allow-Headers",
+            "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
+          }
         ]
       }
     ]
